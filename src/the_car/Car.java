@@ -1,4 +1,6 @@
 package the_car;
+import CarExceptions.CarNotStartedException;
+import CarExceptions.CarOutOfFuelException;
 
 public class Car {
 
@@ -17,20 +19,24 @@ public class Car {
         fuelLevel += 20;
     }
 
-    public boolean drive() {
-        if (!started) {
-            return false;
-        }
+    public boolean drive() throws CarNotStartedException, CarOutOfFuelException {
 
-        if (fuelLevel <= 0) {
-            started = false;
-            fuelLevel = 0;
-            return false;
-        }
+    if (!started) {
+//            return false;
+        throw new CarNotStartedException("The are is not started!");
+    }
 
-        fuelLevel -= 5;
+    if (fuelLevel <= 0) {
+        started = false;
+        fuelLevel = 0;
+        throw new CarOutOfFuelException("There is no fuel please refill...");
+//            return false;
+    }
 
-        return true;
+    fuelLevel -= 5;
+
+    return true;
+
 
     }
 
